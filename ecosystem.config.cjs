@@ -13,6 +13,6 @@ module.exports = {
     autorestart: true,
 
     // 监控变化
-    watch: false
+    watch: true
   }]
 }

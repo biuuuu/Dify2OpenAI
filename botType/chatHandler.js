@@ -102,7 +102,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
       body: data,
     });
 
-    const userId = "apiuser"; // 如果可用，替换为实际的用户 ID
+    const userId = data.user || 'chuangsiaiuser' // 如果可用，替换为实际的用户 ID
     const lastMessage = messages[messages.length - 1];
 
     // 第一步：先扫描所有消息中的图片内容

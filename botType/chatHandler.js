@@ -186,7 +186,9 @@ async function handleRequest(req, res, config, requestId, startTime) {
 
     // 如果存在历史记录，将其包含在 queryString 中
     if (history) {
-      queryString = `Here is our talk history:\n'''\n${history}\n'''\n\nHere is my question:\n${queryString}`;
+      // queryString = `Here is our talk history:\n'''\n${history}\n'''\n\nHere is my question:\n${queryString}`;
+      // 将历史会话改成 JSON 传递给 Dify 服务
+      queryString = JSON.stringify(messages)
     }
 
     // 记录消息处理

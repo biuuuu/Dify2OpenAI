@@ -189,11 +189,15 @@ async function handleRequest(req, res, config, requestId, startTime) {
     //   // queryString = `Here is our talk history:\n'''\n${history}\n'''\n\nHere is my question:\n${queryString}`;
     // }
     // v2
+    // if (history) {
+    //   // 将历史会话改成 JSON 传递给 Dify 服务
+    //   queryString = JSON.stringify(messages)
+    // } else {
+    //   queryString = JSON.stringify([{ role: "user", content: queryString }])
+    // }
+    // v3
     if (history) {
-      // 将历史会话改成 JSON 传递给 Dify 服务
-      queryString = JSON.stringify(messages)
-    } else {
-      queryString = JSON.stringify([{ role: "user", content: queryString }])
+      queryString = queryString
     }
 
     // 记录消息处理
@@ -210,7 +214,9 @@ async function handleRequest(req, res, config, requestId, startTime) {
 
     // 为 Dify 准备请求体
     const requestBody = {
-      inputs: {},
+      inputs: {
+        messages: JSON.stringify(messages)
+      },
       query: queryString,
       response_mode: "streaming",
       conversation_id: "", // 如果可用，使用现有的 conversation_id

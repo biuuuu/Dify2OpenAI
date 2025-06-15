@@ -62,7 +62,7 @@ function parseConfig(authHeader, modelParam) {
   // 方式二和方式三的处理
   if (tokenParts.length === 1) {
     const singleValue = tokenParts[0].trim();
-    
+
     // 解析 model 参数
     if (!modelParam) {
       log("error", "缺少 model 参数");

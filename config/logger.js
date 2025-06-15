@@ -35,7 +35,7 @@ const format = winston.format.combine(
 // 根据环境创建不同的传输配置
 function getTransports() {
   const isDev = process.env.NODE_ENV === 'development';
-  
+
   // 生产环境只在控制台输出错误
   if (!isDev) {
     return [
@@ -45,7 +45,7 @@ function getTransports() {
       })
     ];
   }
-  
+
   // 开发环境完整日志
   return [
     new winston.transports.Console({
@@ -83,7 +83,7 @@ export const log = (level, message, meta = {}) => {
   if (process.env.NODE_ENV !== 'development' && level !== 'error') {
     return;
   }
-  
+
   logger.log(level, message, {
     timestamp: new Date().toISOString(),
     ...meta,

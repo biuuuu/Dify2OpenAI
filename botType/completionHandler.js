@@ -108,7 +108,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
         for (const content of message.content) {
           if (content.type === "image_url" && content.image_url && content.image_url.url) {
             const imageUrl = content.image_url.url;
-            
+
             // 检查URL是否为base64数据
             if (imageUrl.startsWith('data:')) {
               // 是base64数据，需要上传
@@ -148,7 +148,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
         // 处理字符串类型的内容（OpenAI格式）
         if (typeof content === "string") {
           queryString += content + "\n";
-        } 
+        }
         // 处理对象类型的内容
         else if (content.type === "text") {
           queryString += content.text + "\n";
@@ -280,22 +280,22 @@ async function handleRequest(req, res, config, requestId, startTime) {
                 if (!isResponseEnded) {
                   res.write(
                     "data: " +
-                      JSON.stringify({
-                        id: chunkId,
-                        object: "chat.completion.chunk",
-                        created: chunkCreated,
-                        model: data.model,
-                        choices: [
-                          {
-                            index: 0,
-                            delta: {
-                              content: chunkContent,
-                            },
-                            finish_reason: null,
+                    JSON.stringify({
+                      id: chunkId,
+                      object: "chat.completion.chunk",
+                      created: chunkCreated,
+                      model: data.model,
+                      choices: [
+                        {
+                          index: 0,
+                          delta: {
+                            content: chunkContent,
                           },
-                        ],
-                      }) +
-                      "\n\n"
+                          finish_reason: null,
+                        },
+                      ],
+                    }) +
+                    "\n\n"
                   );
                 }
               }
@@ -308,20 +308,20 @@ async function handleRequest(req, res, config, requestId, startTime) {
               if (!isResponseEnded) {
                 res.write(
                   "data: " +
-                    JSON.stringify({
-                      id: chunkId,
-                      object: "chat.completion.chunk",
-                      created: chunkCreated,
-                      model: data.model,
-                      choices: [
-                        {
-                          index: 0,
-                          delta: {},
-                          finish_reason: "stop",
-                        },
-                      ],
-                    }) +
-                    "\n\n"
+                  JSON.stringify({
+                    id: chunkId,
+                    object: "chat.completion.chunk",
+                    created: chunkCreated,
+                    model: data.model,
+                    choices: [
+                      {
+                        index: 0,
+                        delta: {},
+                        finish_reason: "stop",
+                      },
+                    ],
+                  }) +
+                  "\n\n"
                 );
               }
               if (!isResponseEnded) {

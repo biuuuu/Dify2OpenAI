@@ -5,7 +5,7 @@ import { log } from '../config/logger.js';
 export function sanitizeLog(obj) {
   if (!obj) return obj;
   const sanitized = JSON.parse(JSON.stringify(obj));
-  
+
   // 隐藏敏感字段
   if (sanitized.headers && sanitized.headers.authorization) {
     sanitized.headers.authorization = '******';
@@ -13,7 +13,7 @@ export function sanitizeLog(obj) {
   if (sanitized.API_KEY) {
     sanitized.API_KEY = '******';
   }
-  
+
   return sanitized;
 }
 
@@ -83,7 +83,7 @@ export function getFileExtension(url) {
     }
     return 'bin'; // 默认二进制文件
   }
-  
+
   // 如果是 URL，清除参数并提取扩展名
   try {
     // 移除 URL 参数
@@ -106,15 +106,15 @@ export function getFileType(extension) {
   const imageExts = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
   const audioExts = ['mp3', 'm4a', 'wav', 'webm', 'amr'];
   const videoExts = ['mp4', 'mov', 'mpeg', 'mpga'];
-  
+
   // 将扩展名转为小写进行比较
   const ext = extension.toLowerCase();
-  
+
   if (documentExts.includes(ext)) return 'document';
   if (imageExts.includes(ext)) return 'image';
   if (audioExts.includes(ext)) return 'audio';
   if (videoExts.includes(ext)) return 'video';
-  
+
   // 默认作为自定义类型
   return 'custom';
 }

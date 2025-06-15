@@ -101,7 +101,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
 
     const userId = "apiuser"; // 如果可用，替换为实际的用户 ID
     const lastMessage = messages[messages.length - 1];
-    
+
     // 第一步：先扫描所有消息中的图片内容
     log("info", "开始扫描所有消息中的图片", { requestId, messageCount: messages.length });
     for (const message of messages) {
@@ -109,7 +109,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
         for (const content of message.content) {
           if (content.type === "image_url" && content.image_url && content.image_url.url) {
             const imageUrl = content.image_url.url;
-            
+
             // 检查URL是否为base64数据
             if (imageUrl.startsWith('data:')) {
               // 是base64数据，需要上传
@@ -144,7 +144,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
         }
       }
     }
-    
+
     // 第二步：从最后一条消息中提取查询文本
     if (Array.isArray(lastMessage.content)) {
       for (const content of lastMessage.content) {
@@ -281,22 +281,22 @@ async function handleRequest(req, res, config, requestId, startTime) {
               if (!isResponseEnded) {
                 res.write(
                   "data: " +
-                    JSON.stringify({
-                      id: chunkId,
-                      object: "chat.completion.chunk",
-                      created: chunkCreated,
-                      model: data.model,
-                      choices: [
-                        {
-                          index: 0,
-                          delta: {
-                            content: result,
-                          },
-                          finish_reason: "stop",
+                  JSON.stringify({
+                    id: chunkId,
+                    object: "chat.completion.chunk",
+                    created: chunkCreated,
+                    model: data.model,
+                    choices: [
+                      {
+                        index: 0,
+                        delta: {
+                          content: result,
                         },
-                      ],
-                    }) +
-                    "\n\n"
+                        finish_reason: "stop",
+                      },
+                    ],
+                  }) +
+                  "\n\n"
                 );
                 res.write("data: [DONE]\n\n");
                 res.end();

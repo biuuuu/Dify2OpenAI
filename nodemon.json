@@ -1,5 +1,9 @@
 {
-  "watch": ["*.js", "botType/*.js", "config/*.js"],
+  "watch": [
+    "*.js",
+    "botType/*.js",
+    "config/*.js"
+  ],
   "ext": "js,json,env",
   "ignore": [
     "node_modules/",

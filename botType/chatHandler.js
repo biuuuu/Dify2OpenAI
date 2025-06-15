@@ -183,12 +183,17 @@ async function handleRequest(req, res, config, requestId, startTime) {
         return `${message.role}: ${contentText}`;
       })
       .join("\n");
-
-    // 如果存在历史记录，将其包含在 queryString 中
+    // v1
+    // // 如果存在历史记录，将其包含在 queryString 中
+    // if (history) {
+    //   // queryString = `Here is our talk history:\n'''\n${history}\n'''\n\nHere is my question:\n${queryString}`;
+    // }
+    // v2
     if (history) {
-      // queryString = `Here is our talk history:\n'''\n${history}\n'''\n\nHere is my question:\n${queryString}`;
       // 将历史会话改成 JSON 传递给 Dify 服务
       queryString = JSON.stringify(messages)
+    } else {
+      queryString = JSON.stringify([{ role: "user", content: queryString }])
     }
 
     // 记录消息处理

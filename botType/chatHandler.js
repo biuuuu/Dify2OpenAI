@@ -215,7 +215,8 @@ async function handleRequest(req, res, config, requestId, startTime) {
     // 为 Dify 准备请求体
     const requestBody = {
       inputs: {
-        messages: JSON.stringify(messages)
+        messages: JSON.stringify(messages),
+        search: data.search || "",
       },
       query: queryString,
       response_mode: "streaming",

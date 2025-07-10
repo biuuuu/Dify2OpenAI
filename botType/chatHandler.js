@@ -217,6 +217,7 @@ async function handleRequest(req, res, config, requestId, startTime) {
       inputs: {
         messages: JSON.stringify(messages),
         search: data.search || "",
+        instruction: data.instruction || "", // 额外指令
       },
       query: queryString,
       response_mode: "streaming",
